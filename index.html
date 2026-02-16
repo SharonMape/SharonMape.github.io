@@ -3,470 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <title>Avances de Conteos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background:#f7f8fa;
+    font-family:'Inter',sans-serif;
+    background:#f4f6fa;
     margin:0;
-    padding:20px 40px;
+    padding:40px;
+    color:#1e293b;
 }
-.section-title{
-    font-size:22px;
-    font-weight:700;
-    margin:30px 0 10px;
+
+.header{ margin-bottom:30px; }
+.header h1{ font-size:34px; margin:5px 0; }
+.subtitle{ color:#64748b; font-size:14px; }
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
 }
-.counter{color:#777;margin-left:6px;font-weight:500;}
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
-    gap:20px;
-    margin-bottom:40px;
+
+.left-filters{ display:flex; gap:12px; }
+
+.tag{
+    background:#e2e8f0;
+    padding:8px 14px;
+    border-radius:8px;
+    font-size:13px;
 }
+
+.search{
+    background:white;
+    border:1px solid #e2e8f0;
+    padding:10px 15px;
+    border-radius:10px;
+    width:300px;
+}
+
+.search input{
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:14px;
+}
+
+.tabs{ display:flex; gap:10px; }
+
+.tabs button{
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    background:#e2e8f0;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.tabs .active{
+    background:#0f172a;
+    color:white;
+}
+
+.columns{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#94a3b8;
+    font-weight:600;
+    padding:0 10px;
+    margin-bottom:10px;
+}
+
 .card{
     background:white;
-    padding:20px;
     border-radius:14px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.05);
-    border-top:5px solid;
-    margin-left: 20px;
-    margin-right: 20px;
+    padding:18px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    border-left:4px solid #22c55e;
+    box-shadow:0 2px 6px rgba(0,0,0,0.04);
 }
-.card.green{border-color:#3bb54a;}
-.card.red{border-color:#e95353;}
-.card-title{
-    font-size:18px;
-    font-weight:600;
-    margin-bottom:5px;
-}
-.percent{
-    font-size:20px;
-    font-weight:700;
-    margin-left:auto;
-}
-.row{
+
+.card.pendiente{ border-left:4px solid #ef4444; }
+
+.left{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    gap:15px;
+    width:30%;
 }
-.status{
-    padding:3px 10px;
+
+.icon{
+    background:#dcfce7;
+    color:#16a34a;
+    padding:12px;
     border-radius:10px;
-    font-size:12px;
+}
+
+.card.pendiente .icon{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.badge{
+    font-size:11px;
+    padding:4px 10px;
+    border-radius:6px;
+    margin-top:4px;
+    display:inline-block;
     font-weight:600;
 }
-.status.green{background:#e7f7ec;color:#3bb54a;}
-.status.red{background:#fdeaea;color:#e95353;}
-.weeks{
-    margin-top:18px;
-    display:flex;
-    justify-content:space-between;
+
+.badge.ok{
+    background:#dcfce7;
+    color:#166534;
 }
-.week-item{
-    text-align:center;
+
+.badge.pendiente{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.progress-section{ width:35%; }
+
+.progress-label{
     font-size:12px;
+    margin-bottom:5px;
 }
-.circle{
-    width:22px;height:22px;
-    border-radius:50%;
-    margin:auto;
-    margin-top:4px;
+
+.progress-bar{
+    height:6px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    background:#22c55e;
+}
+
+.days{
+    display:flex;
+    gap:8px;
+    width:25%;
+    justify-content:flex-end;
+}
+
+.day{
+    width:32px;
+    height:32px;
+    border-radius:10px;
+    border:1px solid #cbd5e1;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:12px;
-}
-.circle.green{background:#3bb54a;color:white;}
-.circle.red{background:#e95353;color:white;}
-.circle.empty{border:2px solid #d9d9d9;}
-
-/* ⭐ TARJETA DEL HEADER – LÍNEA MÁS DELGADA */
-.header-card {
-    background: white;
-    padding: 12px 0px;     /* 🔥 Mucho más delgado */
-    margin: 0 20px 10px;    /* 🔥 Reduce espacio inferior */
-    border-radius: 18px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    border: 0.6px solid #eceff3;  /* Línea finita */
+    font-size:15px;
+    font-weight:700;
+    color:#64748b;
 }
 
-.header-container {
-    padding: 18px 25px; /* 🔥 Reduce altura interna */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeSlide 0.8s ease-out forwards;
+.day.ok{
+    background:#16a34a;
+    color:white;
+    border:none;
 }
 
-/* Margen con el contenido */
-.content-body {
-    margin-top: 20px;
-    padding: 0 10px;
+.day.bad{
+    background:#ef4444;
+    color:white;
+    border:none;
 }
-
-.header-section {
-    padding: 2px 0;
-}
-
-.header-card {
-    padding: 1px 0px;
-}
-
-
 </style>
-
 </head>
 <body>
 
-<style>
-    body {
-        font-family: "Inter", sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f8fafc;
-    }
+<div class="header">
+    <div class="subtitle">INVENTARIOS · IE</div>
+    <h1>Avances de Conteos</h1>
+</div>
 
-    @keyframes fadeSlide {
-        from { opacity: 0; transform: translateY(12px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+<div class="top-bar">
+    <div class="left-filters">
+        <div class="tag">📅 09 Febrero 2026</div>
+        <div class="tag">📘 Semana 02</div>
+    </div>
 
-    .header-container {
-        padding: 40px 60px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        animation: fadeSlide 0.8s ease-out forwards;
-    }
+    <div class="search">
+        <input type="text" id="searchInput" placeholder="Buscar sucursal...">
+    </div>
 
-    .header-left h1 {
-        margin: 12px 0 0 0;
-        font-size: 38px;
-        font-weight: 800;
-        color: #0f172a;
-    }
-
-    .chip {
-        display: inline-flex;
-        align-items: center;
-        background: #fff7e6;
-        color: #e8a400;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 600;
-    }
-    .chip-dot {
-        width: 8px;
-        height: 8px;
-        background: #e8a400;
-        border-radius: 50%;
-        margin-right: 6px;
-    }
-
-    .subtitle {
-        margin-top: 8px;
-        color: #64748b;
-        font-size: 17px;
-    }
-
-    .header-right {
-        display: flex;
-        gap: 18px;
-        animation: fadeSlide 1s ease-out forwards;
-    }
-
-    .info-card {
-        background: white;
-        padding: 14px 22px;
-        border-radius: 16px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border: 1px solid #f1f5f9;
-        min-width: 120px;
-    }
-
-    .info-label {
-        color: #94a3b8;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.8px;
-    }
-
-    .info-value {
-        margin-top: 4px;
-        font-size: 18px;
-        font-weight: 700;
-        color: #0f172a;
-    }
-</style>
-
-<!-- ⭐ HEADER DENTRO DE TARJETA -->
-<div class="header-card">
-    <div class="header-container">
-
-        <!-- IZQUIERDA -->
-        <div class="header-left">
-
-            <div class="chip">
-                <div class="chip-dot"></div>
-                IE - Internacional de Electricos
-            </div>
-
-            <h1>Avances de Conteos</h1>
-
-            <div class="subtitle">
-                Seguimiento semanal del cumplimiento de conteos por sucursal
-            </div>
-
-        </div>
-
-        <!-- DERECHA -->
-        <div class="header-right">
-
-            <div class="info-card">
-                <div class="info-label">FECHA</div>
-                <div class="info-value">09/02/2026</div>
-            </div>
-
-            <div class="info-card">
-                <div class="info-label">SEMANA</div>
-                <div class="info-value">01</div>
-            </div>
-
-        </div>
-
+    <div class="tabs">
+        <button class="active" onclick="filterStatus('todas', this)">Todas</button>
+        <button onclick="filterStatus('cumplido', this)">Al día</button>
+        <button onclick="filterStatus('pendiente', this)">Pendientes</button>
     </div>
 </div>
 
-<!-- ⭐ CONTENIDO PRINCIPAL -->
-<div class="content-body">
-
-<h2 class="section-title" style="color:#3bb54a;"> Sucursales que Cumplieron <span class="counter">(7)</span></h2>
-
-<div class="grid">
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">1. Ibagué</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">2. Medellín</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">3. Bucaramanga</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">4. Pereira</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">5. Neiva</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">6. Villavicencio</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-    <div class="card green">
-        <div class="row">
-            <div class="card-title">7. Cúcuta</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
-   <div class="card green">
-        <div class="row">
-            <div class="card-title">8. Tamana</div>
-            <div class="percent">25%</div>
-        </div>
-        <div class="status green">Al día</div>
-
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle green">✓</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-
+<div class="columns">
+    <div style="width:30%">SUCURSAL</div>
+    <div style="width:35%">PROGRESO</div>
+    <div style="width:25%; text-align:right;">SEMANAS</div>
 </div>
 
-<h2 class="section-title" style="color:#c93030;"> Sucursales que No Cumplieron <span class="counter">(7)</span></h2>
+<div id="cardsContainer"></div>
 
-<div class="grid">
+<script>
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">9. Bogotá</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+const semanaActual = 2;
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
+const sucursales = [
+["IE IBAGUE",[1,1,0,0]],
+["IE MEDELLIN",[1,1,0,0]],
+["IE VILLAVICENCIO",[1,1,0,0]],
+["IE BUCARAMANGA",[1,1,0,0]],
+["IE CUCUTA",[1,1,0,0]],
+["IE TAMANA",[1,1,0,0]],
+["IE NEIVA",[1,0,0,0]],
+["IE MANIZALES",[0,1,0,0]],
+["IE CALI",[0,0,0,0]],
+["IE PEREIRA",[1,0,0,0]],
+["IE CARTAGENA",[0,0,0,0]],
+["IE MONTERIA",[0,1,0,0]],
+["IE BOGOTA",[0,0,0,0]],
+];
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">10. Cali</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+const container = document.getElementById("cardsContainer");
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
+sucursales.forEach(s => {
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">11. Cartagena</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+let semanas = s[1];
+let cumplidas = semanas.filter(x=>x===1).length;
+let porcentaje = cumplidas * 25;
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
+let estado = porcentaje === 0 ? "pendiente" : "cumplido";
+let badgeClass = porcentaje === 0 ? "pendiente" : "ok";
+let badgeText = porcentaje === 0 ? "PENDIENTE" : "EN PROCESO";
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">12. Manizales</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+let semanasHTML = "";
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
+semanas.forEach((sem,i)=>{
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">12. Montería</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+if(i+1 > semanaActual){
+    semanasHTML += `<div class="day">${i+1}</div>`;
+}
+else if(sem === 1){
+    semanasHTML += `<div class="day ok">✔</div>`;
+}
+else{
+    semanasHTML += `<div class="day bad">X</div>`;
+}
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
+});
 
-    <div class="card red">
-        <div class="row">
-            <div class="card-title">14. Panamá</div>
-            <div class="percent">0%</div>
-        </div>
-        <div class="status red">Pendiente</div>
+container.innerHTML += `
+<div class="card ${estado}">
+<div class="left">
+<div class="icon">🏢</div>
+<div>
+<strong>${s[0]}</strong><br>
+<span class="badge ${badgeClass}">${badgeText}</span>
+</div>
+</div>
 
-        <div class="weeks">
-            <div class="week-item">SEM 1 <div class="circle red">✕</div></div>
-            <div class="week-item">SEM 2 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 3 <div class="circle empty"></div></div>
-            <div class="week-item">SEM 4 <div class="circle empty"></div></div>
-        </div>
-    </div>
-  </div>
+<div class="progress-section">
+<div class="progress-label">${porcentaje}% completado</div>
+<div class="progress-bar">
+<div class="progress" style="width:${porcentaje}%"></div>
+</div>
+</div>
 
-</div> <!-- GRID -->
-</div> <!-- CONTENT BODY -->
+<div class="days">
+${semanasHTML}
+</div>
+</div>
+`;
+});
+
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    const value = this.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(value) ? "flex" : "none";
+    });
+});
+
+function filterStatus(status, button){
+    document.querySelectorAll(".tabs button").forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    document.querySelectorAll(".card").forEach(card=>{
+        if(status === "todas"){
+            card.style.display = "flex";
+        } else if(card.classList.contains(status)){
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+</script>
 
 </body>
 </html>
